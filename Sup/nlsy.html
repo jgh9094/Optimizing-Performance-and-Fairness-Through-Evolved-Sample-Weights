@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Supplemental Material for ‘Optimizing Model Performance and Fairness Through Genetically Evolved Sample Weights’</title>
+  <title>Chapter 9 NLSY | Supplemental Material for ‘Optimizing Model Performance and Fairness Through Genetically Evolved Sample Weights’</title>
   <meta name="description" content="Supplemental material" />
   <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Supplemental Material for ‘Optimizing Model Performance and Fairness Through Genetically Evolved Sample Weights’" />
+  <meta property="og:title" content="Chapter 9 NLSY | Supplemental Material for ‘Optimizing Model Performance and Fairness Through Genetically Evolved Sample Weights’" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="Supplemental material" />
   <meta name="github-repo" content="jgh9094/Optimizing-Performance-and-Fairness-Through-Evolved-Sample-Weights" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Supplemental Material for ‘Optimizing Model Performance and Fairness Through Genetically Evolved Sample Weights’" />
+  <meta name="twitter:title" content="Chapter 9 NLSY | Supplemental Material for ‘Optimizing Model Performance and Fairness Through Genetically Evolved Sample Weights’" />
   
   <meta name="twitter:description" content="Supplemental material" />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-<link rel="next" href="heart-disease.html"/>
+<link rel="prev" href="compas-violent.html"/>
+<link rel="next" href="compas.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -293,116 +293,52 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">Supplemental Material for ‘Optimizing Model Performance and Fairness Through Genetically Evolved Sample Weights’</h1>
-<p class="author"><em>Anil Kumar Saini, Jose Guadalupe Hernandez, Emily F. Wong, Jason H. Moore</em></p>
-<p class="date"><em>2024-07-15</em></p>
+<div id="nlsy" class="section level1 hasAnchor" number="9">
+<h1><span class="header-section-number">Chapter 9</span> NLSY<a href="nlsy.html#nlsy" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Here we report the <strong>hypervolume</strong> achived by evaluating the performance of each solution wihtin the Pareto front on the test set of the <code>nlsy</code> dataset.</p>
+<div id="analysis-setup-7" class="section level2 hasAnchor" number="9.1">
+<h2><span class="header-section-number">9.1</span> Analysis setup<a href="nlsy.html#analysis-setup-7" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="nlsy.html#cb60-1" tabindex="-1"></a><span class="co"># heart-disease data</span></span>
+<span id="cb60-2"><a href="nlsy.html#cb60-2" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">filter</span>(testing, dataset <span class="sc">==</span> <span class="st">&quot;nlsy&quot;</span>)</span></code></pre></div>
 </div>
-<div id="introduction" class="section level1 hasAnchor" number="1">
-<h1><span class="header-section-number">Chapter 1</span> Introduction<a href="index.html#introduction" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>This is not intended as a stand-alone document, but as a companion to our manuscript.</p>
-<div id="contributing-authors" class="section level2 hasAnchor" number="1.1">
-<h2><span class="header-section-number">1.1</span> Contributing authors<a href="index.html#contributing-authors" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<ul>
-<li><a href="https://theaksaini.github.io/">Anil Kumar Saini</a></li>
-<li><a href="https://jgh9094.github.io/">Jose Guadalupe Hernandez</a></li>
-<li><a href="https://www.cedars-sinai.edu/research-education/research/labs/bright/members.html">Emily F. Wong</a></li>
-<li><a href="https://jasonhmoore.org/">Jason H. Moore</a></li>
-</ul>
+<div id="hypervolume-7" class="section level2 hasAnchor" number="9.2">
+<h2><span class="header-section-number">9.2</span> Hypervolume<a href="nlsy.html#hypervolume-7" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="nlsy.html#cb61-1" tabindex="-1"></a><span class="fu">volume_plotter</span>(data,<span class="dv">8</span>)</span></code></pre></div>
+<p><img src="evolved-sample-weights-supplemental_files/figure-html/nsly-hv-plt-1.png" width="100%" /></p>
+<div id="summary-stats-7" class="section level3 hasAnchor" number="9.2.1">
+<h3><span class="header-section-number">9.2.1</span> Summary stats<a href="nlsy.html#summary-stats-7" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="nlsy.html#cb62-1" tabindex="-1"></a><span class="fu">volume_summarize</span>(data)</span></code></pre></div>
+<pre><code>## # A tibble: 3 × 8
+##   exp        count na_cnt   min median  mean   max    IQR
+##   &lt;fct&gt;      &lt;int&gt;  &lt;int&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
+## 1 Evolved       20      0 0.294  0.471 0.468 0.578 0.0843
+## 2 Calculated    20      0 0.240  0.256 0.259 0.289 0.0177
+## 3 None          20      0 0.237  0.254 0.256 0.293 0.0186</code></pre>
 </div>
-<div id="about-our-supplemental-material" class="section level2 hasAnchor" number="1.2">
-<h2><span class="header-section-number">1.2</span> About our supplemental material<a href="index.html#about-our-supplemental-material" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>As you may have noticed (unless you’re reading a pdf version of this), our supplemental material is hosted using <a href="https://pages.github.com/">GitHub pages</a>.
-We compiled our data analyses and supplemental documentation into this nifty web-accessible book using <a href="https://bookdown.org">bookdown</a>.</p>
-<p>The code used for this supplemental material can be found in <a href="https://github.com/jgh9094/GPTP-2024-Lexicase-Analysis">this GitHub repository</a>.</p>
-<p>Our supplemental material includes the following:</p>
-<ul>
-<li>Heart disease results (Section <a href="heart-disease.html#heart-disease">2</a>)</li>
-<li>Student math results (Section <a href="student-math.html#student-math">3</a>)</li>
-<li>Student por results (Section <a href="student-por.html#student-por">4</a>)</li>
-<li>CreditG results (Section <a href="creditg.html#creditg">5</a>)</li>
-<li>Titanic results (Section <a href="titanic.html#titanic">6</a>)</li>
-<li>US Crime results (Section <a href="us-crime.html#us-crime">7</a>)</li>
-<li>Compas Violent results (Section <a href="compas-violent.html#compas-violent">8</a>)</li>
-<li>NLSY results (Section <a href="nlsy.html#nlsy">9</a>)</li>
-<li>Compas results (Section <a href="compas.html#compas">10</a>)</li>
-<li>Speed dating results (Section <a href="speeddating.html#speeddating">11</a>)</li>
-</ul>
+<div id="kruskal-wallis-test-7" class="section level3 hasAnchor" number="9.2.2">
+<h3><span class="header-section-number">9.2.2</span> Kruskal-Wallis test<a href="nlsy.html#kruskal-wallis-test-7" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Detected differences between weight strategies.</p>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="nlsy.html#cb64-1" tabindex="-1"></a><span class="fu">kruskal.test</span>(hv <span class="sc">~</span> exp, <span class="at">data =</span> data)</span></code></pre></div>
+<pre><code>## 
+##  Kruskal-Wallis rank sum test
+## 
+## data:  hv by exp
+## Kruskal-Wallis chi-squared = 39.518, df = 2, p-value = 2.623e-09</code></pre>
 </div>
-<div id="supplemental-material-setup" class="section level2 hasAnchor" number="1.3">
-<h2><span class="header-section-number">1.3</span> Supplemental material setup<a href="index.html#supplemental-material-setup" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div id="required-packages-and-variables" class="section level3 hasAnchor" number="1.3.1">
-<h3><span class="header-section-number">1.3.1</span> Required packages and variables<a href="index.html#required-packages-and-variables" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Variable set up.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="index.html#cb1-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb1-2"><a href="index.html#cb1-2" tabindex="-1"></a><span class="fu">library</span>(cowplot)</span>
-<span id="cb1-3"><a href="index.html#cb1-3" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb1-4"><a href="index.html#cb1-4" tabindex="-1"></a><span class="fu">library</span>(PupillometryR)</span>
-<span id="cb1-5"><a href="index.html#cb1-5" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="index.html#cb1-6" tabindex="-1"></a>NAMES <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&#39;Evolved&#39;</span>,<span class="st">&#39;Calculated&#39;</span>,<span class="st">&#39;None&#39;</span>)</span>
-<span id="cb1-7"><a href="index.html#cb1-7" tabindex="-1"></a>TASKS <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&#39;heart_disease&#39;</span>, <span class="st">&#39;student_math&#39;</span>, <span class="st">&#39;student_por&#39;</span>, <span class="st">&#39;creditg&#39;</span>, <span class="st">&#39;titanic&#39;</span>, <span class="st">&#39;us_crime&#39;</span>, <span class="st">&#39;compas_violent&#39;</span>, <span class="st">&#39;nlsy&#39;</span>, <span class="st">&#39;compas&#39;</span>, <span class="st">&#39;speeddating&#39;</span>)</span>
-<span id="cb1-8"><a href="index.html#cb1-8" tabindex="-1"></a>SHAPE <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">21</span>,<span class="dv">24</span>,<span class="dv">22</span>)</span>
-<span id="cb1-9"><a href="index.html#cb1-9" tabindex="-1"></a>cb_palette <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&#39;#D81B60&#39;</span>,<span class="st">&#39;#1E88E5&#39;</span>,<span class="st">&#39;#FFC107&#39;</span>)</span>
-<span id="cb1-10"><a href="index.html#cb1-10" tabindex="-1"></a>TSIZE <span class="ot">&lt;-</span> <span class="dv">19</span></span>
-<span id="cb1-11"><a href="index.html#cb1-11" tabindex="-1"></a></span>
-<span id="cb1-12"><a href="index.html#cb1-12" tabindex="-1"></a>p_theme <span class="ot">&lt;-</span> <span class="fu">theme</span>(</span>
-<span id="cb1-13"><a href="index.html#cb1-13" tabindex="-1"></a>  <span class="at">plot.title =</span> <span class="fu">element_text</span>( <span class="at">face =</span> <span class="st">&quot;bold&quot;</span>, <span class="at">size =</span> <span class="dv">22</span>, <span class="at">hjust=</span><span class="fl">0.5</span>),</span>
-<span id="cb1-14"><a href="index.html#cb1-14" tabindex="-1"></a>  <span class="at">panel.border =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb1-15"><a href="index.html#cb1-15" tabindex="-1"></a>  <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb1-16"><a href="index.html#cb1-16" tabindex="-1"></a>  <span class="at">legend.title=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">18</span>),</span>
-<span id="cb1-17"><a href="index.html#cb1-17" tabindex="-1"></a>  <span class="at">legend.text=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">18</span>),</span>
-<span id="cb1-18"><a href="index.html#cb1-18" tabindex="-1"></a>  <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">18</span>),</span>
-<span id="cb1-19"><a href="index.html#cb1-19" tabindex="-1"></a>  <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">14</span>),</span>
-<span id="cb1-20"><a href="index.html#cb1-20" tabindex="-1"></a>  <span class="at">legend.position=</span><span class="st">&quot;bottom&quot;</span>,</span>
-<span id="cb1-21"><a href="index.html#cb1-21" tabindex="-1"></a>  <span class="at">panel.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">&quot;#f1f2f5&quot;</span>,</span>
-<span id="cb1-22"><a href="index.html#cb1-22" tabindex="-1"></a>                                  <span class="at">colour =</span> <span class="st">&quot;white&quot;</span>,</span>
-<span id="cb1-23"><a href="index.html#cb1-23" tabindex="-1"></a>                                  <span class="at">linewidth =</span> <span class="fl">0.5</span>, <span class="at">linetype =</span> <span class="st">&quot;solid&quot;</span>)</span>
-<span id="cb1-24"><a href="index.html#cb1-24" tabindex="-1"></a>)</span>
-<span id="cb1-25"><a href="index.html#cb1-25" tabindex="-1"></a></span>
-<span id="cb1-26"><a href="index.html#cb1-26" tabindex="-1"></a>testing <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="fu">paste</span>(<span class="st">&#39;./&#39;</span>, <span class="st">&#39;hv_test.csv&#39;</span>, <span class="at">sep =</span> <span class="st">&quot;&quot;</span>, <span class="at">collapse =</span> <span class="cn">NULL</span>), <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb1-27"><a href="index.html#cb1-27" tabindex="-1"></a>testing<span class="sc">$</span>exp <span class="ot">&lt;-</span> <span class="fu">gsub</span>(<span class="st">&#39;Evolved Weights&#39;</span>, <span class="st">&#39;Evolved&#39;</span>, testing<span class="sc">$</span>ex)</span>
-<span id="cb1-28"><a href="index.html#cb1-28" tabindex="-1"></a>testing<span class="sc">$</span>exp <span class="ot">&lt;-</span> <span class="fu">gsub</span>(<span class="st">&#39;Calculated Weights&#39;</span>, <span class="st">&#39;Calculated&#39;</span>, testing<span class="sc">$</span>ex)</span>
-<span id="cb1-29"><a href="index.html#cb1-29" tabindex="-1"></a>testing<span class="sc">$</span>exp <span class="ot">&lt;-</span> <span class="fu">gsub</span>(<span class="st">&#39;No Weights&#39;</span>, <span class="st">&#39;None&#39;</span>, testing<span class="sc">$</span>ex)</span>
-<span id="cb1-30"><a href="index.html#cb1-30" tabindex="-1"></a>testing<span class="sc">$</span>exp <span class="ot">&lt;-</span> <span class="fu">factor</span>(testing<span class="sc">$</span>exp, <span class="at">levels =</span> NAMES)</span></code></pre></div>
-</div>
-<div id="helper-functions" class="section level3 hasAnchor" number="1.3.2">
-<h3><span class="header-section-number">1.3.2</span> Helper functions<a href="index.html#helper-functions" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Function to plot hypervolume results</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="index.html#cb2-1" tabindex="-1"></a>  <span class="co"># function to plot hyper-volume data</span></span>
-<span id="cb2-2"><a href="index.html#cb2-2" tabindex="-1"></a>  volume_plotter <span class="ot">&lt;-</span> <span class="cf">function</span>(data, id)</span>
-<span id="cb2-3"><a href="index.html#cb2-3" tabindex="-1"></a>  {</span>
-<span id="cb2-4"><a href="index.html#cb2-4" tabindex="-1"></a>    <span class="fu">ggplot</span>(data, <span class="fu">aes</span>(<span class="at">x =</span> exp, <span class="at">y =</span> hv, <span class="at">color =</span> exp, <span class="at">fill =</span> exp, <span class="at">shape =</span> exp)) <span class="sc">+</span></span>
-<span id="cb2-5"><a href="index.html#cb2-5" tabindex="-1"></a>    <span class="fu">geom_flat_violin</span>(<span class="at">position =</span> <span class="fu">position_nudge</span>(<span class="at">x =</span> .<span class="dv">1</span>, <span class="at">y =</span> <span class="dv">0</span>), <span class="at">scale =</span> <span class="st">&#39;width&#39;</span>, <span class="at">alpha =</span> <span class="fl">0.2</span>, <span class="at">width =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
-<span id="cb2-6"><a href="index.html#cb2-6" tabindex="-1"></a>    <span class="fu">geom_boxplot</span>(<span class="at">color =</span> <span class="st">&#39;black&#39;</span>, <span class="at">width =</span> .<span class="dv">07</span>, <span class="at">outlier.shape =</span> <span class="cn">NA</span>, <span class="at">alpha =</span> <span class="fl">0.0</span>, <span class="at">size =</span> <span class="fl">1.0</span>, <span class="at">position =</span> <span class="fu">position_nudge</span>(<span class="at">x =</span> .<span class="dv">18</span>, <span class="at">y =</span> <span class="dv">0</span>)) <span class="sc">+</span></span>
-<span id="cb2-7"><a href="index.html#cb2-7" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="at">width =</span> <span class="fl">0.02</span>, <span class="at">height =</span> <span class="fl">0.0001</span>), <span class="at">size =</span> <span class="fl">1.5</span>, <span class="at">alpha =</span> <span class="fl">1.0</span>) <span class="sc">+</span></span>
-<span id="cb2-8"><a href="index.html#cb2-8" tabindex="-1"></a>    <span class="fu">scale_y_continuous</span>(</span>
-<span id="cb2-9"><a href="index.html#cb2-9" tabindex="-1"></a>      <span class="at">name=</span><span class="st">&quot;Volume&quot;</span>,</span>
-<span id="cb2-10"><a href="index.html#cb2-10" tabindex="-1"></a>    ) <span class="sc">+</span></span>
-<span id="cb2-11"><a href="index.html#cb2-11" tabindex="-1"></a>    <span class="fu">scale_x_discrete</span>(</span>
-<span id="cb2-12"><a href="index.html#cb2-12" tabindex="-1"></a>      <span class="at">name=</span><span class="st">&quot;Strategy&quot;</span></span>
-<span id="cb2-13"><a href="index.html#cb2-13" tabindex="-1"></a>    )<span class="sc">+</span></span>
-<span id="cb2-14"><a href="index.html#cb2-14" tabindex="-1"></a>    <span class="fu">scale_shape_manual</span>(<span class="at">values=</span>SHAPE, <span class="at">name=</span><span class="st">&quot;Weight</span><span class="sc">\n</span><span class="st">Strategy&quot;</span>) <span class="sc">+</span></span>
-<span id="cb2-15"><a href="index.html#cb2-15" tabindex="-1"></a>    <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> cb_palette, <span class="at">name=</span><span class="st">&quot;Weight</span><span class="sc">\n</span><span class="st">Strategy&quot;</span>) <span class="sc">+</span></span>
-<span id="cb2-16"><a href="index.html#cb2-16" tabindex="-1"></a>    <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> cb_palette, <span class="at">name=</span><span class="st">&quot;Weight</span><span class="sc">\n</span><span class="st">Strategy&quot;</span>) <span class="sc">+</span></span>
-<span id="cb2-17"><a href="index.html#cb2-17" tabindex="-1"></a>    <span class="fu">ggtitle</span>(TASKS[id])<span class="sc">+</span></span>
-<span id="cb2-18"><a href="index.html#cb2-18" tabindex="-1"></a>    p_theme <span class="sc">+</span> <span class="fu">coord_flip</span>()</span>
-<span id="cb2-19"><a href="index.html#cb2-19" tabindex="-1"></a>  }</span></code></pre></div>
-<p>Function to summarize hypervolume results</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="index.html#cb3-1" tabindex="-1"></a><span class="co"># function to plot hyper-volume data</span></span>
-<span id="cb3-2"><a href="index.html#cb3-2" tabindex="-1"></a>volume_summarize <span class="ot">&lt;-</span> <span class="cf">function</span>(data)</span>
-<span id="cb3-3"><a href="index.html#cb3-3" tabindex="-1"></a>  {</span>
-<span id="cb3-4"><a href="index.html#cb3-4" tabindex="-1"></a>    data <span class="sc">%&gt;%</span></span>
-<span id="cb3-5"><a href="index.html#cb3-5" tabindex="-1"></a>    <span class="fu">group_by</span>(exp) <span class="sc">%&gt;%</span></span>
-<span id="cb3-6"><a href="index.html#cb3-6" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">summarise</span>(</span>
-<span id="cb3-7"><a href="index.html#cb3-7" tabindex="-1"></a>      <span class="at">count =</span> <span class="fu">n</span>(),</span>
-<span id="cb3-8"><a href="index.html#cb3-8" tabindex="-1"></a>      <span class="at">na_cnt =</span> <span class="fu">sum</span>(<span class="fu">is.na</span>(hv)),</span>
-<span id="cb3-9"><a href="index.html#cb3-9" tabindex="-1"></a>      <span class="at">min =</span> <span class="fu">min</span>(hv, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb3-10"><a href="index.html#cb3-10" tabindex="-1"></a>      <span class="at">median =</span> <span class="fu">median</span>(hv, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb3-11"><a href="index.html#cb3-11" tabindex="-1"></a>      <span class="at">mean =</span> <span class="fu">mean</span>(hv, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb3-12"><a href="index.html#cb3-12" tabindex="-1"></a>      <span class="at">max =</span> <span class="fu">max</span>(hv, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb3-13"><a href="index.html#cb3-13" tabindex="-1"></a>      <span class="at">IQR =</span> <span class="fu">IQR</span>(hv, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb3-14"><a href="index.html#cb3-14" tabindex="-1"></a>    )</span>
-<span id="cb3-15"><a href="index.html#cb3-15" tabindex="-1"></a>  }</span></code></pre></div>
+<div id="pairwise-wlcoxon-test-7" class="section level3 hasAnchor" number="9.2.3">
+<h3><span class="header-section-number">9.2.3</span> Pairwise wlcoxon test<a href="nlsy.html#pairwise-wlcoxon-test-7" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="nlsy.html#cb66-1" tabindex="-1"></a><span class="fu">pairwise.wilcox.test</span>(<span class="at">x =</span> data<span class="sc">$</span>hv, <span class="at">g =</span> data<span class="sc">$</span>exp, <span class="at">p.adjust.method =</span> <span class="st">&quot;bonferroni&quot;</span>,</span>
+<span id="cb66-2"><a href="nlsy.html#cb66-2" tabindex="-1"></a>                    <span class="at">paired =</span> <span class="cn">FALSE</span>, <span class="at">conf.int =</span> <span class="cn">FALSE</span>, <span class="at">alternative =</span> <span class="st">&#39;l&#39;</span>)</span></code></pre></div>
+<pre><code>## 
+##  Pairwise comparisons using Wilcoxon rank sum exact test 
+## 
+## data:  data$hv and data$exp 
+## 
+##            Evolved Calculated
+## Calculated 2.2e-11 -         
+## None       2.2e-11 0.82      
+## 
+## P value adjustment method: bonferroni</code></pre>
 
 </div>
 </div>
@@ -412,8 +348,8 @@ We compiled our data analyses and supplemental documentation into this nifty web
           </div>
         </div>
       </div>
-
-<a href="heart-disease.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="compas-violent.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="compas.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -444,7 +380,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/jgh9094/GPTP-2024-Lexicase-Analysis/tree/main/index.Rmd",
+"link": "https://github.com/jgh9094/GPTP-2024-Lexicase-Analysis/tree/main/nlsy.Rmd",
 "text": "Edit"
 },
 "history": {
