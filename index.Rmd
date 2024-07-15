@@ -12,7 +12,11 @@ github-repo: jgh9094/Optimizing-Performance-and-Fairness-Through-Evolved-Sample-
 description: "Supplemental material"
 ---
 
-# Contributing authors
+# Introduction
+
+This is not intended as a stand-alone document, but as a companion to our manuscript.
+
+## Contributing authors
 
 - [Anil Kumar Saini](https://theaksaini.github.io/)
 - [Jose Guadalupe Hernandez](https://jgh9094.github.io/)
@@ -22,6 +26,33 @@ description: "Supplemental material"
 ```{r index, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+
+
+
+## About our supplemental material
+
+As you may have noticed (unless you're reading a pdf version of this), our supplemental material is hosted using [GitHub pages](https://pages.github.com/).
+We compiled our data analyses and supplemental documentation into this nifty web-accessible book using [bookdown](https://bookdown.org).
+
+The code used for this supplemental material can be found in [this GitHub repository](https://github.com/jgh9094/GPTP-2024-Lexicase-Analysis).
+
+Our supplemental material includes the following:
+
+- Heart disease results (Section \@ref(heart-disease))
+- Student math results (Section \@ref(student-math))
+- Student por results (Section \@ref(student-por))
+- CreditG results (Section \@ref(creditg))
+- Titanic results (Section \@ref(titanic))
+- US Crime results (Section \@ref(us-crime))
+- Compas Violent results (Section \@ref(compas-violent))
+- NLSY results (Section \@ref(nlsy))
+- Compas results (Section \@ref(compas))
+- Speed dating results (Section \@ref(speeddating))
+
+## Supplemental material setup
+
+### Required packages and variables
+Variable set up.
 
 ```{r setup, echo=TRUE}
 library(ggplot2)
@@ -39,10 +70,10 @@ p_theme <- theme(
   plot.title = element_text( face = "bold", size = 22, hjust=0.5),
   panel.border = element_blank(),
   panel.grid.minor = element_blank(),
-  legend.title=element_text(size=22),
-  legend.text=element_text(size=23),
-  axis.title = element_text(size=23),
-  axis.text = element_text(size=19),
+  legend.title=element_text(size=18),
+  legend.text=element_text(size=18),
+  axis.title = element_text(size=18),
+  axis.text = element_text(size=14),
   legend.position="bottom",
   panel.background = element_rect(fill = "#f1f2f5",
                                   colour = "white",
@@ -56,22 +87,46 @@ testing$exp <- gsub('No Weights', 'None', testing$ex)
 testing$exp <- factor(testing$exp, levels = NAMES)
 ```
 
-# Introduction
+### Helper functions
 
-This is not intended as a stand-alone document, but as a companion to our manuscript.
+Function to plot hypervolume results
+```{r idx-fun-vol-plt, echo=TRUE}
+  # function to plot hyper-volume data
+  volume_plotter <- function(data, id)
+  {
+    ggplot(data, aes(x = exp, y = hv, color = exp, fill = exp, shape = exp)) +
+    geom_flat_violin(position = position_nudge(x = .1, y = 0), scale = 'width', alpha = 0.2, width = 1.5) +
+    geom_boxplot(color = 'black', width = .07, outlier.shape = NA, alpha = 0.0, size = 1.0, position = position_nudge(x = .18, y = 0)) +
+    geom_point(position = position_jitter(width = 0.02, height = 0.0001), size = 1.5, alpha = 1.0) +
+    scale_y_continuous(
+      name="Volume",
+    ) +
+    scale_x_discrete(
+      name="Strategy"
+    )+
+    scale_shape_manual(values=SHAPE, name="Weight\nStrategy") +
+    scale_colour_manual(values = cb_palette, name="Weight\nStrategy") +
+    scale_fill_manual(values = cb_palette, name="Weight\nStrategy") +
+    ggtitle(TASKS[id])+
+    p_theme + coord_flip()
+  }
+```
 
-## About our supplemental material
-
-As you may have noticed (unless you're reading a pdf version of this), our supplemental material is hosted using [GitHub pages](https://pages.github.com/).
-We compiled our data analyses and supplemental documentation into this nifty web-accessible book using [bookdown](https://bookdown.org).
-
-The code used for this supplemental material can be found in [this GitHub repository](https://github.com/jgh9094/GPTP-2024-Lexicase-Analysis).
-
-Our supplemental material includes the following:
-
-- Heart disease results (Section \@ref(heart-disease))
-<!-- - Standard contradictory rates results (Section \@ref(contradictory-objectives-100-results))
-- Mutation On and Off results (Section \@ref(mutation-on-and-off))
-- Contradictory rates results w/ 100 redundant test cases (Section \@ref(contradictory-objectives-200-results))
-- Contradictory rates results w/ 200 redundant test cases (Section \@ref(contradictory-objectives-300-results))
-- Contradictory rates results w/ 400 redundant test cases (Section \@ref(contradictory-objectives-500-results)) -->
+Function to summarize hypervolume results
+```{r idx-fun-vol-sum, echo=TRUE}
+# function to plot hyper-volume data
+volume_summarize <- function(data)
+  {
+    data %>%
+    group_by(exp) %>%
+    dplyr::summarise(
+      count = n(),
+      na_cnt = sum(is.na(hv)),
+      min = min(hv, na.rm = TRUE),
+      median = median(hv, na.rm = TRUE),
+      mean = mean(hv, na.rm = TRUE),
+      max = max(hv, na.rm = TRUE),
+      IQR = IQR(hv, na.rm = TRUE)
+    )
+  }
+```

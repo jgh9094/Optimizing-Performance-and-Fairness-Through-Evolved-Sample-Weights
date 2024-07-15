@@ -1,0 +1,37 @@
+# NLSY
+
+Here we report the **hypervolume** achived by evaluating the performance of each solution wihtin the Pareto front on the test set of the `nlsy` dataset.
+
+## Analysis setup
+
+```{r nsly-hv-data, message=FALSE}
+# heart-disease data
+data <- filter(testing, dataset == "nlsy")
+```
+
+## Hypervolume
+
+```{r nsly-hv-plt, echo=TRUE, message=FALSE, out.width="100%"}
+volume_plotter(data,8)
+```
+
+### Summary stats
+
+```{r nsly-hv-stats, echo=TRUE, message=FALSE, out.width="100%"}
+volume_summarize(data)
+```
+
+### Kruskal-Wallis test
+
+Detected differences between weight strategies.
+
+```{r nsly-hv-kru, echo=TRUE, message=FALSE, out.width="100%"}
+kruskal.test(hv ~ exp, data = data)
+```
+
+### Pairwise wlcoxon test
+
+```{r nsly-hv-wil, echo=TRUE, warning=FALSE}
+pairwise.wilcox.test(x = data$hv, g = data$exp, p.adjust.method = "bonferroni",
+                    paired = FALSE, conf.int = FALSE, alternative = 'l')
+```
