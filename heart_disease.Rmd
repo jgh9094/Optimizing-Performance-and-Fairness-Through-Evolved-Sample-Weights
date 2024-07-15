@@ -16,7 +16,7 @@ data <- filter(testing, dataset == "heart_disease")
 
 ## Hypervolume
 
-```{r hd-hypervolume, echo=TRUE, message=FALSE}
+```{r hd-hypervolume, echo=TRUE, message=FALSE, out.width="100%"}
 ggplot(data, aes(x = exp, y = hv, color = exp, fill = exp, shape = exp)) +
   geom_flat_violin(position = position_nudge(x = .1, y = 0), scale = 'width', alpha = 0.2, width = 1.5) +
   geom_boxplot(color = 'black', width = .07, outlier.shape = NA, alpha = 0.0, size = 1.0, position = position_nudge(x = .16, y = 0)) +
