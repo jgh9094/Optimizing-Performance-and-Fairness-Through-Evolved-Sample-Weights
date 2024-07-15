@@ -1,0 +1,77 @@
+---
+title: "Supplemental Material for 'Optimizing Model Performance and Fairness Through Genetically Evolved Sample Weights'"
+author: "Anil Kumar Saini, Jose Guadalupe Hernandez, Emily F. Wong, Jason H. Moore"
+date: "`r Sys.Date()`"
+output: bookdown::gitbook
+documentclass: book
+bibliography: ["packages.bib", "supplemental.bib"]
+biblio-style: apalike
+nocite: '@*'
+link-citations: yes
+github-repo: jgh9094/Optimizing-Performance-and-Fairness-Through-Evolved-Sample-Weights
+description: "Supplemental material"
+---
+
+# Contributing authors
+
+- [Anil Kumar Saini](https://theaksaini.github.io/)
+- [Jose Guadalupe Hernandez](https://jgh9094.github.io/)
+- [Emily F. Wong](https://www.cedars-sinai.edu/research-education/research/labs/bright/members.html)
+- [Jason H. Moore](https://jasonhmoore.org/)
+
+```{r index, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r setup, echo=TRUE}
+library(ggplot2)
+library(cowplot)
+library(dplyr)
+library(PupillometryR)
+
+NAMES <- c('Evolved','Calculated','None')
+TASKS <- c('heart_disease', 'student_math', 'student_por', 'creditg', 'titanic', 'us_crime', 'compas_violent', 'nlsy', 'compas', 'speeddating')
+SHAPE <- c(21,24,22)
+cb_palette <- c('#D81B60','#1E88E5','#FFC107')
+TSIZE <- 19
+
+p_theme <- theme(
+  plot.title = element_text( face = "bold", size = 22, hjust=0.5),
+  panel.border = element_blank(),
+  panel.grid.minor = element_blank(),
+  legend.title=element_text(size=22),
+  legend.text=element_text(size=23),
+  axis.title = element_text(size=23),
+  axis.text = element_text(size=19),
+  legend.position="bottom",
+  panel.background = element_rect(fill = "#f1f2f5",
+                                  colour = "white",
+                                  linewidth = 0.5, linetype = "solid")
+)
+
+testing <- read.csv(paste('./', 'hv_test.csv', sep = "", collapse = NULL), header = TRUE, stringsAsFactors = FALSE)
+testing$exp <- gsub('Evolved Weights', 'Evolved', testing$ex)
+testing$exp <- gsub('Calculated Weights', 'Calculated', testing$ex)
+testing$exp <- gsub('No Weights', 'None', testing$ex)
+testing$exp <- factor(testing$exp, levels = NAMES)
+```
+
+# Introduction
+
+This is not intended as a stand-alone document, but as a companion to our manuscript.
+
+## About our supplemental material
+
+As you may have noticed (unless you're reading a pdf version of this), our supplemental material is hosted using [GitHub pages](https://pages.github.com/).
+We compiled our data analyses and supplemental documentation into this nifty web-accessible book using [bookdown](https://bookdown.org).
+
+The code used for this supplemental material can be found in [this GitHub repository](https://github.com/jgh9094/GPTP-2024-Lexicase-Analysis).
+
+Our supplemental material includes the following:
+
+<!-- - Exploitation rate results (Section \@ref(exploitation-rate-results))
+- Standard contradictory rates results (Section \@ref(contradictory-objectives-100-results))
+- Mutation On and Off results (Section \@ref(mutation-on-and-off))
+- Contradictory rates results w/ 100 redundant test cases (Section \@ref(contradictory-objectives-200-results))
+- Contradictory rates results w/ 200 redundant test cases (Section \@ref(contradictory-objectives-300-results))
+- Contradictory rates results w/ 400 redundant test cases (Section \@ref(contradictory-objectives-500-results)) -->
