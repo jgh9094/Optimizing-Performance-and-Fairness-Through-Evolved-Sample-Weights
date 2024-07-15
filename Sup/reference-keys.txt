@@ -1,3 +1,6 @@
 contributing-authors
 introduction
 about-our-supplemental-material
+heart-disease
+analysis-setup
+hypervolume

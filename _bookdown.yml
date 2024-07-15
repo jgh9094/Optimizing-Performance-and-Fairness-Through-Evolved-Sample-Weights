@@ -4,6 +4,4 @@ language:
   ui:
     chapter_name: "Chapter "
 delete_merged_file: true
-rmd_files: ["index.Rmd",
-            "tail.Rmd"
-           ]
+rmd_files: ["index.Rmd", "heart_disease.Rmd", "tail.Rmd"]
