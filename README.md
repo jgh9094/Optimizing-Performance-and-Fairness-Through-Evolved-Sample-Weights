@@ -7,9 +7,11 @@
 - [Emily F. Wong](https://www.cedars-sinai.edu/research-education/research/labs/bright/members.html)
 - [Jason H. Moore](https://jasonhmoore.org/)
 
-<!-- ## Overview
+## Overview
 
-Link to all supplementary material: [here](https://jgh9094.github.io/GPTP-2024-Lexicase-Analysis/Bookdown/Pages/).
+Branch dedicated to hosting all of the supplementary material on the web.
+
+<!-- Link to all supplementary material: [here](https://jgh9094.github.io/GPTP-2024-Lexicase-Analysis/Bookdown/Pages/).
 All data is available on the Open Science Framework [here](https://osf.io/g5u9p/).
 
 ### Abstract
