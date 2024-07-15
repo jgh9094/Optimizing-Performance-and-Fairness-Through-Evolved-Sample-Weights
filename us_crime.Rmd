@@ -2,8 +2,6 @@
 
 Here we report the **hypervolume** achived by evaluating the performance of each solution wihtin the Pareto front on the test set of the `us_crime` dataset.
 
-## Analysis setup
-
 ```{r usc-hv-data, message=FALSE}
 # heart-disease data
 data <- filter(testing, dataset == "us_crime")
