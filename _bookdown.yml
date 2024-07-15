@@ -4,4 +4,15 @@ language:
   ui:
     chapter_name: "Chapter "
 delete_merged_file: true
-rmd_files: ["index.Rmd", "heart_disease.Rmd", "tail.Rmd"]
+rmd_files: ["index.Rmd",
+            "heart_disease.Rmd",
+            "student_math.Rmd",
+            "student_por.Rmd",
+            "creditg.Rmd",
+            "titanic.Rmd",
+            "us_crime.Rmd",
+            "compas_violent.Rmd",
+            "nlsy.Rmd",
+            "compas.Rmd",
+            "speeddating.Rmd",
+            "tail.Rmd"]
