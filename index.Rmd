@@ -48,6 +48,8 @@ Our supplemental material includes the following:
 - NLSY results (Section \@ref(nlsy))
 - Compas results (Section \@ref(compas))
 - Speed dating results (Section \@ref(speeddating))
+- PMAD EPDS results (Section \@ref(pmad-epds))
+- PMAD EPDS RUS results (Section \@ref(pmad-epds-rus))
 
 ## Supplemental material setup
 
@@ -61,7 +63,7 @@ library(dplyr)
 library(PupillometryR)
 
 NAMES <- c('Evolved','Calculated','None')
-TASKS <- c('heart_disease', 'student_math', 'student_por', 'creditg', 'titanic', 'us_crime', 'compas_violent', 'nlsy', 'compas', 'speeddating')
+TASKS <- c('heart_disease', 'student_math', 'student_por', 'creditg', 'titanic', 'us_crime', 'compas_violent', 'nlsy', 'compas', 'speeddating','pmad_epds', 'pmad_epds_rus', 'pmad_phq', 'pmad_phq_rus')
 SHAPE <- c(21,24,22)
 cb_palette <- c('#D81B60','#1E88E5','#FFC107')
 TSIZE <- 19

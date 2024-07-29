@@ -1,0 +1,35 @@
+# PMAD EPDS RUS
+
+Here we report the **hypervolume** achived by evaluating the performance of each solution wihtin the Pareto front on the test set of the `pmad_epds_rus` dataset.
+
+```{r per-hv-data, message=FALSE}
+# heart-disease data
+data <- filter(testing, dataset == "pmad_epds_rus")
+```
+
+## Hypervolume
+
+```{r per-hv-plt, echo=TRUE, message=FALSE, out.width="100%"}
+volume_plotter(data,12)
+```
+
+### Summary stats
+
+```{r per-hv-stats, echo=TRUE, message=FALSE, out.width="100%"}
+volume_summarize(data)
+```
+
+### Kruskal-Wallis test
+
+Detected differences between weight strategies.
+
+```{r per-hv-kru, echo=TRUE, message=FALSE, out.width="100%"}
+kruskal.test(hv ~ exp, data = data)
+```
+
+### Pairwise wlcoxon test
+
+```{r per-hv-wil, echo=TRUE, warning=FALSE}
+pairwise.wilcox.test(x = data$hv, g = data$exp, p.adjust.method = "bonferroni",
+                    paired = FALSE, conf.int = FALSE, alternative = 'l')
+```
