@@ -50,6 +50,8 @@ Our supplemental material includes the following:
 - Speed dating results (Section \@ref(speeddating))
 - PMAD EPDS results (Section \@ref(pmad-epds))
 - PMAD EPDS RUS results (Section \@ref(pmad-epds-rus))
+- PMAD PHQ results (Section \@ref(pmad-phq))
+- PMAD PHQ RUS results (Section \@ref(pmad-phq-rus))
 
 ## Supplemental material setup
 
