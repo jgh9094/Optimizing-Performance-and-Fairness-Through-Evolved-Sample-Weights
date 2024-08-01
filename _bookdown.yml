@@ -5,6 +5,7 @@ language:
     chapter_name: "Chapter "
 delete_merged_file: true
 rmd_files: ["index.Rmd",
+            "metric_defintions.Rmd",
             "heart_disease.Rmd",
             "student_math.Rmd",
             "student_por.Rmd",
