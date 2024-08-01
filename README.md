@@ -1,5 +1,9 @@
 # Optimizing Model Performance and Fairness Through Genetically Evolved Sample Weights
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.13149100.svg)](https://doi.org/10.5281/zenodo.13149100)
+[![supplemental](https://img.shields.io/badge/go_to-supplementary_material-98111e)](https://jgh9094.github.io/PSB2024-Fairness-Through-Evolved-Sample-Weights/Sup/)
+[![data](https://img.shields.io/badge/go_to-data-9807FF)](https://osf.io/nx6wp/)
+
 ## Authors
 
 - [Anil Kumar Saini](https://theaksaini.github.io/)
