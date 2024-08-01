@@ -113,14 +113,14 @@
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \urlstyle{same}
 \hypersetup{
-  pdftitle={Supplemental Material for `Optimizing Model Performance and Fairness Through Genetically Evolved Sample Weights'},
+  pdftitle={Supplemental Material for `Optimizing Model Performance and Fairness Through Evolved Sample Weights'},
   pdfauthor={Anil Kumar Saini, Jose Guadalupe Hernandez, Emily F. Wong, Jason H. Moore},
   hidelinks,
   pdfcreator={LaTeX via pandoc}}
 
-\title{Supplemental Material for `Optimizing Model Performance and Fairness Through Genetically Evolved Sample Weights'}
+\title{Supplemental Material for `Optimizing Model Performance and Fairness Through Evolved Sample Weights'}
 \author{Anil Kumar Saini, Jose Guadalupe Hernandez, Emily F. Wong, Jason H. Moore}
-\date{2024-07-28}
+\date{2024-07-31}
 
 \begin{document}
 \maketitle
@@ -184,11 +184,7 @@ Our supplemental material includes the following:
 \item
   PMAD EPDS results (Section \ref{pmad-epds})
 \item
-  PMAD EPDS RUS results (Section \ref{pmad-epds-rus})
-\item
   PMAD PHQ results (Section \ref{pmad-phq})
-\item
-  PMAD PHQ RUS results (Section \ref{pmad-phq-rus})
 \end{itemize}
 
 \hypertarget{supplemental-material-setup}{%
@@ -1198,15 +1194,15 @@ Detected differences between weight strategies.
 ## P value adjustment method: bonferroni
 \end{verbatim}
 
-\hypertarget{pmad-epds-rus}{%
-\chapter{PMAD EPDS RUS}\label{pmad-epds-rus}}
+\hypertarget{pmad-phq}{%
+\chapter{PMAD PHQ}\label{pmad-phq}}
 
-Here we report the \textbf{hypervolume} achived by evaluating the performance of each solution wihtin the Pareto front on the test set of the \texttt{pmad\_epds\_rus} dataset.
+Here we report the \textbf{hypervolume} achived by evaluating the performance of each solution wihtin the Pareto front on the test set of the \texttt{pmad\_phq} dataset.
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{\# heart{-}disease data}
-\NormalTok{data }\OtherTok{\textless{}{-}} \FunctionTok{filter}\NormalTok{(testing, dataset }\SpecialCharTok{==} \StringTok{"pmad\_epds\_rus"}\NormalTok{)}
+\NormalTok{data }\OtherTok{\textless{}{-}} \FunctionTok{filter}\NormalTok{(testing, dataset }\SpecialCharTok{==} \StringTok{"pmad\_phq"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1215,11 +1211,11 @@ Here we report the \textbf{hypervolume} achived by evaluating the performance of
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{volume\_plotter}\NormalTok{(data,}\DecValTok{12}\NormalTok{)}
+\FunctionTok{volume\_plotter}\NormalTok{(data,}\DecValTok{13}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=1\linewidth]{evolved-sample-weights-supplemental_files/figure-latex/per-hv-plt-1}
+\includegraphics[width=1\linewidth]{evolved-sample-weights-supplemental_files/figure-latex/pp-hv-plt-1}
 
 \hypertarget{summary-stats-11}{%
 \subsection{Summary stats}\label{summary-stats-11}}
@@ -1234,9 +1230,9 @@ Here we report the \textbf{hypervolume} achived by evaluating the performance of
 ## # A tibble: 3 x 8
 ##   exp        count na_cnt   min median  mean   max    IQR
 ##   <fct>      <int>  <int> <dbl>  <dbl> <dbl> <dbl>  <dbl>
-## 1 Evolved       20      0 0.461  0.547 0.542 0.574 0.0267
-## 2 Calculated    20      0 0.403  0.435 0.438 0.466 0.0184
-## 3 None          20      0 0.399  0.435 0.436 0.468 0.0218
+## 1 Evolved       20      0 0.449  0.563 0.541 0.604 0.0944
+## 2 Calculated    20      0 0.419  0.447 0.452 0.528 0.0263
+## 3 None          20      0 0.418  0.447 0.453 0.516 0.0218
 \end{verbatim}
 
 \hypertarget{kruskal-wallis-test-11}{%
@@ -1255,7 +1251,7 @@ Detected differences between weight strategies.
 ##  Kruskal-Wallis rank sum test
 ## 
 ## data:  hv by exp
-## Kruskal-Wallis chi-squared = 38.835, df = 2, p-value = 3.69e-09
+## Kruskal-Wallis chi-squared = 29.615, df = 2, p-value = 3.708e-07
 \end{verbatim}
 
 \hypertarget{pairwise-wlcoxon-test-11}{%
@@ -1275,174 +1271,8 @@ Detected differences between weight strategies.
 ## data:  data$hv and data$exp 
 ## 
 ##            Evolved Calculated
-## Calculated 8.7e-11 -         
-## None       4.4e-11 1         
-## 
-## P value adjustment method: bonferroni
-\end{verbatim}
-
-\hypertarget{pmad-phq}{%
-\chapter{PMAD PHQ}\label{pmad-phq}}
-
-Here we report the \textbf{hypervolume} achived by evaluating the performance of each solution wihtin the Pareto front on the test set of the \texttt{pmad\_phq} dataset.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{\# heart{-}disease data}
-\NormalTok{data }\OtherTok{\textless{}{-}} \FunctionTok{filter}\NormalTok{(testing, dataset }\SpecialCharTok{==} \StringTok{"pmad\_phq"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\hypertarget{hypervolume-12}{%
-\section{Hypervolume}\label{hypervolume-12}}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{volume\_plotter}\NormalTok{(data,}\DecValTok{13}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\includegraphics[width=1\linewidth]{evolved-sample-weights-supplemental_files/figure-latex/pp-hv-plt-1}
-
-\hypertarget{summary-stats-12}{%
-\subsection{Summary stats}\label{summary-stats-12}}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{volume\_summarize}\NormalTok{(data)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## # A tibble: 3 x 8
-##   exp        count na_cnt   min median  mean   max    IQR
-##   <fct>      <int>  <int> <dbl>  <dbl> <dbl> <dbl>  <dbl>
-## 1 Evolved       20      0 0.449  0.563 0.541 0.604 0.0944
-## 2 Calculated    20      0 0.419  0.447 0.452 0.528 0.0263
-## 3 None          20      0 0.418  0.447 0.453 0.516 0.0218
-\end{verbatim}
-
-\hypertarget{kruskal-wallis-test-12}{%
-\subsection{Kruskal-Wallis test}\label{kruskal-wallis-test-12}}
-
-Detected differences between weight strategies.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{kruskal.test}\NormalTok{(hv }\SpecialCharTok{\textasciitilde{}}\NormalTok{ exp, }\AttributeTok{data =}\NormalTok{ data)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## 
-##  Kruskal-Wallis rank sum test
-## 
-## data:  hv by exp
-## Kruskal-Wallis chi-squared = 29.615, df = 2, p-value = 3.708e-07
-\end{verbatim}
-
-\hypertarget{pairwise-wlcoxon-test-12}{%
-\subsection{Pairwise wlcoxon test}\label{pairwise-wlcoxon-test-12}}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{pairwise.wilcox.test}\NormalTok{(}\AttributeTok{x =}\NormalTok{ data}\SpecialCharTok{$}\NormalTok{hv, }\AttributeTok{g =}\NormalTok{ data}\SpecialCharTok{$}\NormalTok{exp, }\AttributeTok{p.adjust.method =} \StringTok{"bonferroni"}\NormalTok{,}
-                    \AttributeTok{paired =} \ConstantTok{FALSE}\NormalTok{, }\AttributeTok{conf.int =} \ConstantTok{FALSE}\NormalTok{, }\AttributeTok{alternative =} \StringTok{\textquotesingle{}l\textquotesingle{}}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## 
-##  Pairwise comparisons using Wilcoxon rank sum exact test 
-## 
-## data:  data$hv and data$exp 
-## 
-##            Evolved Calculated
 ## Calculated 2.5e-07 -         
 ## None       3.2e-07 1         
-## 
-## P value adjustment method: bonferroni
-\end{verbatim}
-
-\hypertarget{pmad-phq-rus}{%
-\chapter{PMAD PHQ RUS}\label{pmad-phq-rus}}
-
-Here we report the \textbf{hypervolume} achived by evaluating the performance of each solution wihtin the Pareto front on the test set of the \texttt{pmad\_phq\_rus} dataset.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{\# heart{-}disease data}
-\NormalTok{data }\OtherTok{\textless{}{-}} \FunctionTok{filter}\NormalTok{(testing, dataset }\SpecialCharTok{==} \StringTok{"pmad\_phq\_rus"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\hypertarget{hypervolume-13}{%
-\section{Hypervolume}\label{hypervolume-13}}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{volume\_plotter}\NormalTok{(data,}\DecValTok{14}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\includegraphics[width=1\linewidth]{evolved-sample-weights-supplemental_files/figure-latex/ppr-hv-plt-1}
-
-\hypertarget{summary-stats-13}{%
-\subsection{Summary stats}\label{summary-stats-13}}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{volume\_summarize}\NormalTok{(data)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## # A tibble: 3 x 8
-##   exp        count na_cnt   min median  mean   max    IQR
-##   <fct>      <int>  <int> <dbl>  <dbl> <dbl> <dbl>  <dbl>
-## 1 Evolved       20      0 0.434  0.505 0.511 0.598 0.107 
-## 2 Calculated    20      0 0.423  0.447 0.453 0.532 0.0213
-## 3 None          20      0 0.422  0.447 0.454 0.520 0.0249
-\end{verbatim}
-
-\hypertarget{kruskal-wallis-test-13}{%
-\subsection{Kruskal-Wallis test}\label{kruskal-wallis-test-13}}
-
-Detected differences between weight strategies.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{kruskal.test}\NormalTok{(hv }\SpecialCharTok{\textasciitilde{}}\NormalTok{ exp, }\AttributeTok{data =}\NormalTok{ data)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## 
-##  Kruskal-Wallis rank sum test
-## 
-## data:  hv by exp
-## Kruskal-Wallis chi-squared = 16.497, df = 2, p-value = 0.0002616
-\end{verbatim}
-
-\hypertarget{pairwise-wlcoxon-test-13}{%
-\subsection{Pairwise wlcoxon test}\label{pairwise-wlcoxon-test-13}}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{pairwise.wilcox.test}\NormalTok{(}\AttributeTok{x =}\NormalTok{ data}\SpecialCharTok{$}\NormalTok{hv, }\AttributeTok{g =}\NormalTok{ data}\SpecialCharTok{$}\NormalTok{exp, }\AttributeTok{p.adjust.method =} \StringTok{"bonferroni"}\NormalTok{,}
-                    \AttributeTok{paired =} \ConstantTok{FALSE}\NormalTok{, }\AttributeTok{conf.int =} \ConstantTok{FALSE}\NormalTok{, }\AttributeTok{alternative =} \StringTok{\textquotesingle{}l\textquotesingle{}}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## 
-##  Pairwise comparisons using Wilcoxon rank sum exact test 
-## 
-## data:  data$hv and data$exp 
-## 
-##            Evolved Calculated
-## Calculated 0.00034 -         
-## None       0.00049 1.00000   
 ## 
 ## P value adjustment method: bonferroni
 \end{verbatim}

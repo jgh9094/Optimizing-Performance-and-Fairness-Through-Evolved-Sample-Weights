@@ -16,7 +16,5 @@ rmd_files: ["index.Rmd",
             "compas.Rmd",
             "speeddating.Rmd",
             "pmad_epds.Rmd",
-            "pmad_epds_rus.Rmd",
             "pmad_phq.Rmd",
-            "pmad_phq_rus.Rmd",
             "tail.Rmd"]

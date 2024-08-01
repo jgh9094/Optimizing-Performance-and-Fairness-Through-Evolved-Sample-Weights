@@ -1,5 +1,5 @@
 ---
-title: "Supplemental Material for 'Optimizing Model Performance and Fairness Through Genetically Evolved Sample Weights'"
+title: "Supplemental Material for 'Optimizing Model Performance and Fairness Through Evolved Sample Weights'"
 author: "Anil Kumar Saini, Jose Guadalupe Hernandez, Emily F. Wong, Jason H. Moore"
 date: "`r Sys.Date()`"
 output: bookdown::gitbook
@@ -8,7 +8,7 @@ bibliography: ["packages.bib", "supplemental.bib"]
 biblio-style: apalike
 nocite: '@*'
 link-citations: yes
-github-repo: jgh9094/Optimizing-Performance-and-Fairness-Through-Evolved-Sample-Weights
+github-repo: jgh9094/PSB2024-Fairness-Through-Evolved-Sample-Weights
 description: "Supplemental material"
 ---
 
@@ -49,9 +49,7 @@ Our supplemental material includes the following:
 - Compas results (Section \@ref(compas))
 - Speed dating results (Section \@ref(speeddating))
 - PMAD EPDS results (Section \@ref(pmad-epds))
-- PMAD EPDS RUS results (Section \@ref(pmad-epds-rus))
 - PMAD PHQ results (Section \@ref(pmad-phq))
-- PMAD PHQ RUS results (Section \@ref(pmad-phq-rus))
 
 ## Supplemental material setup
 
