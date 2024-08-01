@@ -19,8 +19,8 @@ All data is available on the Open Science Framework [here](https://osf.io//).
 ### Abstract
 
 > Machine learning models trained on real-world data may inadvertently produce biased predictions that negatively impact people from marginalized communities.
-Biased predictions are especially problematic in healthcare settings, where these predictions can lead to underdiagnosis and misdiagnosis, exacerbating existing inequalities in healthcare access.
-Reweighing is a method that mitigates bias in model predictions by assigning weight to each data sample in the training set used during model training.
-In this work, we present a Genetic Algorithm (GA) for evolving these sample weights.
+Biased predictions are especially problematic in healthcare settings, where these predictions can lead to underdiagnosis and misdiagnosis, exacerbating existing disparities in health outcomes.
+Reweighing is a method that mitigates bias in model predictions by assigning different weight to each data point in the training set used during model training.
+In this work, we present a Genetic Algorithm (GA) for evolving these sample weights and compare it to two other weighting techniques: (1) sample weights computed using only dataset characteristics and, (2) no differential weights (i.e., equal weights).
 We use ten publicly available datasets and one medical dataset to test the effectiveness of our new approach.
-Our results demonstrate that evolving sample weights through our GA approach optimizes both predictive performance (e.g., area under ROC curve) and fairness (e.g., false negative rate across groups) better than the sample weights computed using the existing methods.
+Our results demonstrate that evolving sample weights through our GA optimizes both predictive performance (e.g., area under ROC curve) and fairness (e.g., false negative rate across groups) better than the alternative sample weights techniques.
