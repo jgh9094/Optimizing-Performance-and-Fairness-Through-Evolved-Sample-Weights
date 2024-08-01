@@ -120,7 +120,7 @@
 
 \title{Supplemental Material for `Optimizing Model Performance and Fairness Through Evolved Sample Weights'}
 \author{Anil Kumar Saini, Jose Guadalupe Hernandez, Emily F. Wong, Jason H. Moore}
-\date{2024-07-31}
+\date{2024-08-01}
 
 \begin{document}
 \maketitle
@@ -161,6 +161,8 @@ Our supplemental material includes the following:
 
 \begin{itemize}
 \tightlist
+\item
+  Metric defintions (Section \ref{metric-defintions})\\
 \item
   Heart disease results (Section \ref{heart-disease})
 \item
@@ -280,6 +282,38 @@ Function to summarize hypervolume results
 \NormalTok{  \}}
 \end{Highlighting}
 \end{Shaded}
+
+\hypertarget{bias-defintions}{%
+\chapter{Bias defintions}\label{bias-defintions}}
+
+Multiple metrics exist to measure the fairness of predictions made by a machine learning model. Each metric is defined in relation to a specific application context and attempts to quantify different properties (false negative rate, accuracy, etc.) of the predictions for people belonging to different groups. Different metrics try to quantify different properties (false negative rate, accuracy, etc.) of the predictions for people belonging to different groups. For example, `Demographic parity' measures whether the acceptance rates (proportion of individuals belonging to the group receiving positive prediction) are the same for all groups. `Error rate parity' measures whether the false positive and false negative rates in all groups are equal, and `Predictive parity' ensures an equal positive prediction rate across all groups. Here, we discuss in detail two commonly used metrics to measure the fairness in the predictions of a given model : `Subgroup False Positive Fairness', and `Subgroup False Negative Fairness'.
+Before delving into the definitions of the above-mentioned metrics, we describe some terminologies here. Let \(\mathcal{D} = \{{(X,X',Y)}_{i}\}_{i=1}^N\) be the dataset under consideration. For each data point \((X,X',Y)\), \(X \in \mathcal{X}^{d}\) contains values corresponding to \(d\) \emph{non-sensitive} features, \(X' \in \mathcal{X'}^{p}\) contains values corresponding to \(p\) \emph{sensitive} features, and \(Y\) contains the target variables. Features deemed `sensitive', or `protected', such as race, sex, and gender, are classified as sensitive features (\(X'\)). Here, we would assume \(X'\) and \(X\) do not overlap, and therefore, \(X+X'\) would give us the full feature set for a particular data point. Based on the values of sensitive attributes, each data point can fall into one of the groups defined by those sensitive attributes. For example, `Black women younger than 25' would be one of the groups when the sensitive attributes are race, gender, and age. Let \(G\in \mathcal{G}\) be one such group. We show the membership to this group by \(X'\in G\). Finally, let \(\hat{Y}\in \{0,1\}\) be the predicted target value output by the classifier. Finally, let \(R(X, X') \in [0.0,1.0]\) be the risk score output by a given ML model, \(\hat{Y}\in \{0,1\}\) is the predicted target value, and for simplicity, also the classifier, formed by applying a threshold on \(R(X,X')\).
+False Positive Subgroup Fairness and False Positive Subgroup Fairness capture the maximum deviation of a model's performance among any one group in \(\mathcal{G}\), normalized by the probability of observing an individual from that group in the negative or positive labels, respectively. Since in most scenarios, we would want the model to perform similarly in all groups, lower values on these metrics denote more fair models.
+For a dataset \(\mathcal{D}\), and risk model \(R(X,X')\), the following are the definitions.
+False Positive (FP) Rate
+: False positive (FP) rate can be defined as
+\[FP(R) = Pr[\hat{Y}=1|Y=0].\]
+And the False Positive Rate for a group \(G\) can be defined as
+\[FP(R,G) = Pr[\hat{Y}=1|Y=0, X'\in G].\]
+False Negative (FN) Rate
+: False positive (FP) rate can be defined as
+\[FN(R) = Pr[\hat{Y}=0|Y=1].\]
+And the False Negative Rate for a group \(G\) can be defined as
+\[FN(R, G) = Pr[\hat{Y}=1|Y=0, X'\in G].\]
+False Positive Subgroup Fairness
+: Let the probability of getting negative labels in group G be
+\[\alpha_{FP}(G) = Pr[X'\in G, Y=0].\]
+We also define the absolute difference in false positive rate between the whole population and for a specific group G as
+\[\beta(R,G)=|FP(R)-FP(R,G)|.\]
+Then the False Positive Subgroup Fairness (FPSF) is given by
+\[FPSF(D, R) = \max_{G\in\mathcal{G}}\alpha_{FP}(G)\beta(R,G).\]
+False Negative Subgroup Fairness
+: Let the probability of getting positive labels in group G be
+\[\alpha_{FN}(G) = Pr[X'\in G, Y=1].\]
+We also define the absolute difference in false negative rate between the whole population and for a specific group G as
+\[\beta(R,G)=|FN(R)-FN(R,G)|.\]
+Then the False Positive Subgroup Fairness (FPSF) is given by
+\[FNSF(D, R) = \max_{G\in\mathcal{G}}\alpha_{FN}(G)\beta(R,G).\]
 
 \hypertarget{heart-disease}{%
 \chapter{Heart Disease}\label{heart-disease}}
