@@ -38,7 +38,7 @@ The code used for this supplemental material can be found in [this GitHub reposi
 
 Our supplemental material includes the following:
 
-- Metric defintions (Section \@ref(metric-defintions))  
+- Metric defintions (Section \@ref(bias-defintions))
 - Heart disease results (Section \@ref(heart-disease))
 - Student math results (Section \@ref(student-math))
 - Student por results (Section \@ref(student-por))
