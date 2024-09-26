@@ -63,24 +63,24 @@ def fitness_func(sample_weight, model, X, y, sens_features, f_metric, seed):
 
         y_proba = model.predict_proba(X_test)[:,1]
         X_prime = X_test.loc[:, sens_features]
-    
+
         auroc.append(sklearn.metrics.get_scorer("roc_auc_ovr")(model, X_test, y_test))
         f_val.append(f_metric(y_test, y_proba, X_prime, grouping = 'intersectional', abs_val = True, gamma = True))
 
     return np.mean(auroc), np.mean(f_val)
 
 def calc_weights(X, y, sens_features_name):
-    ''' Calculate sample weights according to calculationg given in 
+    ''' Calculate sample weights according to calculationg given in
            F. Kamiran and T. Calders,  "Data Preprocessing Techniques for
            Classification without Discrimination," Knowledge and Information
            Systems, 2012.
-           
+
            Generalizes to any number of sensitive features and any number of
            levels within each feature.
 
          Note that the code works only when all sensitive features and y are binary.
-    ''' 
-    
+    '''
+
     # combination of label and groups (outputs a table)
     sens_features = X[sens_features_name] # grab features
     outcome = y
@@ -90,7 +90,7 @@ def calc_weights(X, y, sens_features_name):
     w = makehash()
     n = len(X)
     for r in tab.index:
-        key1 = str(r)
+        key1 = str(tuple(int(num) for num in r))
         row_sum = tab.loc[r].sum(axis=0)
         for c in tab.columns:
             key2 = str(c)
@@ -101,7 +101,7 @@ def calc_weights(X, y, sens_features_name):
                 n_combo = tab.loc[r,c]
             val = (row_sum*col_sum)/(n*n_combo)
             w[key1][key2] = val
-    
+
     # Instance weights
     instance_weights = []
     for index, row in X.iterrows():
@@ -130,7 +130,7 @@ def load_task(dataset_name, preprocess=True):
 
     cached_data_path = f"data/{dataset_name}_{preprocess}.pkl"
     print(cached_data_path)
-    
+
     d = pickle.load(open(cached_data_path, "rb"))
     X_train, y_train, X_test, y_test, features, sens_features = d['X_train'], d['y_train'], d['X_test'], d['y_test'], d['features'], d['sens_features']
 
@@ -202,7 +202,7 @@ def score(est, X, y, sens_features=None, f_metric=None):
         y_preds = est.predict(X)
         y_preds_onehot = sklearn.preprocessing.label_binarize(y_preds, classes=est.fitted_pipeline_.classes_)
         this_auroc_score = metrics.roc_auc_score(y, y_preds_onehot, multi_class="ovr")
-    
+
     try:
         this_logloss = sklearn.metrics.get_scorer("neg_log_loss")(est, X, y)*-1
     except:
@@ -215,7 +215,7 @@ def score(est, X, y, sens_features=None, f_metric=None):
 
     if sens_features is not None and f_metric is not None:
         y_proba = est.predict_proba(X)[:,1]
-        X_prime = X.loc[:, sens_features] 
+        X_prime = X.loc[:, sens_features]
         this_f_score = f_metric(y, y_proba, X_prime, grouping = 'intersectional', abs_val = True, gamma = True)
     else:
         this_f_score =  None
@@ -243,7 +243,7 @@ def loop_through_tasks(ml_models, experiments, task_id_lists, base_save_folder, 
                     print("working on ")
                     print(save_folder)
 
-                    try: 
+                    try:
 
                         print("loading data")
                         X_train, y_train, X_test, y_test, features, sens_features = load_task(taskid)
@@ -251,12 +251,12 @@ def loop_through_tasks(ml_models, experiments, task_id_lists, base_save_folder, 
 
                         print("starting ml")
                         seed = m+t+run+e
-                        
+
                         est = ml(random_state=seed)
                         print(ml, est, type(est))
-                        
+
                         start = time.time()
-                        
+
                         print("Starting the fitting process. ")
                         if exp=='No Weights':
                             est.fit(X_train, y_train)
@@ -268,8 +268,8 @@ def loop_through_tasks(ml_models, experiments, task_id_lists, base_save_folder, 
                             ga_func.__name__ = 'ga_func'
                             ga = GA(ind_size = 2**(len(sens_features)+ 1), random_state=seed, **ga_params)
                             ga.optimize(fn=ga_func)
-                            
-                            #Retrieve  
+
+                            #Retrieve
                             print(ga.best_individual.program, ga.best_individual.fitness)
 
                             weights = partial_to_full_sample_weight(ga.best_individual.program, X_train, y_train, sens_features)
@@ -313,7 +313,7 @@ def loop_through_tasks(ml_models, experiments, task_id_lists, base_save_folder, 
                             pickle.dump(pipeline_failure_dict, f)
 
                         return
-    
+
     print("all finished")
 
 def loop_with_equal_evals(ml_models, experiments, task_id_lists, base_save_folder, num_runs, f_metric, ga_params):
@@ -337,15 +337,15 @@ def loop_with_equal_evals(ml_models, experiments, task_id_lists, base_save_folde
 
                 print("starting ml")
                 seed = m+t+e*100
-                                
-                try:  
-                
+
+                try:
+
                     start = time.time()
-                            
+
                     print("Starting the fitting process. ")
                     if exp=='No Weights':
                         num_evals = num_runs*ga_params['pop_size']*ga_params['max_gens']
-                        scores = pd.DataFrame(columns = ['taskid','exp_name','seed','auroc', 'accuracy', 'balanced_accuracy', 'fairness', 'train_auroc', 'train_accuracy', 
+                        scores = pd.DataFrame(columns = ['taskid','exp_name','seed','auroc', 'accuracy', 'balanced_accuracy', 'fairness', 'train_auroc', 'train_accuracy',
                                                         'train_balanced_accuracy', 'train_fairness'])
                         rng = np.random.default_rng(seed)
                         rints = rng.integers(low=0, high=10000, size=num_evals)
@@ -368,16 +368,16 @@ def loop_with_equal_evals(ml_models, experiments, task_id_lists, base_save_folde
                             this_score["exp_name"] = exp
                             this_score["seed"] = rints[i]
 
-                            scores.loc[len(scores.index)] = this_score  
+                            scores.loc[len(scores.index)] = this_score
 
                         with open(f"{save_folder}/scores.pkl", "wb") as f:
                             pickle.dump(scores, f)
 
-                        
+
                     elif exp=='Calculated Weights':
                         num_evals = num_runs*ga_params['pop_size']*ga_params['max_gens']
                         weights =  calc_weights(X_train, y_train, sens_features)
-                        scores = pd.DataFrame(columns = ['taskid','exp_name','seed','auroc', 'accuracy', 'balanced_accuracy', 'fairness', 'train_auroc', 'train_accuracy', 
+                        scores = pd.DataFrame(columns = ['taskid','exp_name','seed','auroc', 'accuracy', 'balanced_accuracy', 'fairness', 'train_auroc', 'train_accuracy',
                                                         'train_balanced_accuracy', 'train_fairness'])
                         rng = np.random.default_rng(seed)
                         rints = rng.integers(low=0, high=10000, size=num_evals)
@@ -400,13 +400,13 @@ def loop_with_equal_evals(ml_models, experiments, task_id_lists, base_save_folde
                             this_score["exp_name"] = exp
                             this_score["seed"] = rints[i]
 
-                            scores.loc[len(scores.index)] = this_score  
+                            scores.loc[len(scores.index)] = this_score
 
                         with open(f"{save_folder}/scores.pkl", "wb") as f:
                             pickle.dump(scores, f)
-                    
+
                     else:
-                        scores = pd.DataFrame(columns = ['taskid','exp_name','seed','auroc', 'accuracy', 'balanced_accuracy', 'fairness', 'train_auroc', 'train_accuracy', 
+                        scores = pd.DataFrame(columns = ['taskid','exp_name','seed','auroc', 'accuracy', 'balanced_accuracy', 'fairness', 'train_auroc', 'train_accuracy',
                                                         'train_balanced_accuracy', 'train_fairness'])
                         ## Launch 5 independent runs with different seeds
                         for i in range(num_runs):
@@ -435,7 +435,7 @@ def loop_with_equal_evals(ml_models, experiments, task_id_lists, base_save_folde
                                 this_score["exp_name"] = exp
                                 this_score["seed"] = seed+i
 
-                                scores.loc[len(scores.index)] = this_score  
+                                scores.loc[len(scores.index)] = this_score
 
                         with open(f"{save_folder}/scores.pkl", "wb") as f:
                             pickle.dump(scores, f)
@@ -453,7 +453,7 @@ def loop_with_equal_evals(ml_models, experiments, task_id_lists, base_save_folde
                         pickle.dump(pipeline_failure_dict, f)
 
                     return
-    
+
     print("all finished")
 
 
@@ -476,7 +476,7 @@ def loop_with_equal_evals2(ml_models, experiments, task_id_lists, base_save_fold
                     print("loading data")
                     super_seed = (m+t+r+e)*1000
                     print("Super Seed : ", super_seed)
-                    
+
                     X_train, y_train, X_test, y_test, features, sens_features = load_task(taskid)
                     X = pd.concat([X_train,X_test], ignore_index=True)
                     y = pd.concat([y_train,y_test], ignore_index=True)
@@ -490,20 +490,20 @@ def loop_with_equal_evals2(ml_models, experiments, task_id_lists, base_save_fold
                     if taskid.split()[-1]=='rus':
                         rus = RandomUnderSampler(sampling_strategy = "auto", random_state=r)
                         X_train, y_train = rus.fit_resample(X_train, y_train)
-                        
+
 
                     print("Training data: ", X_train, y_train)
 
                     print("starting ml")
-                                    
-                    try:  
-                    
+
+                    try:
+
                         start = time.time()
-                                
+
                         print("Starting the fitting process. ")
                         if exp=='No Weights':
                             num_evals = ga_params['pop_size']*ga_params['max_gens']
-                            scores = pd.DataFrame(columns = ['taskid','exp_name','seed', 'run', 'auroc', 'accuracy', 'balanced_accuracy', 'fairness', 'train_auroc', 'train_accuracy', 
+                            scores = pd.DataFrame(columns = ['taskid','exp_name','seed', 'run', 'auroc', 'accuracy', 'balanced_accuracy', 'fairness', 'train_auroc', 'train_accuracy',
                                                             'train_balanced_accuracy', 'train_fairness'])
                             for i in range(num_evals):
                                 this_seed = super_seed + i
@@ -526,16 +526,16 @@ def loop_with_equal_evals2(ml_models, experiments, task_id_lists, base_save_fold
                                 this_score["seed"] = this_seed
                                 this_score["run"] = r
 
-                                scores.loc[len(scores.index)] = this_score  
+                                scores.loc[len(scores.index)] = this_score
 
                             with open(f"{save_folder}/scores.pkl", "wb") as f:
                                 pickle.dump(scores, f)
 
-                            
+
                         elif exp=='Calculated Weights':
                             num_evals = ga_params['pop_size']*ga_params['max_gens']
                             weights =  calc_weights(X_train, y_train, sens_features)
-                            scores = pd.DataFrame(columns = ['taskid','exp_name','seed','run','auroc', 'accuracy', 'balanced_accuracy', 'fairness', 'train_auroc', 'train_accuracy', 
+                            scores = pd.DataFrame(columns = ['taskid','exp_name','seed','run','auroc', 'accuracy', 'balanced_accuracy', 'fairness', 'train_auroc', 'train_accuracy',
                                                             'train_balanced_accuracy', 'train_fairness'])
                             for i in range(num_evals):
                                 this_seed = super_seed + i
@@ -558,13 +558,13 @@ def loop_with_equal_evals2(ml_models, experiments, task_id_lists, base_save_fold
                                 this_score["seed"] = this_seed
                                 this_score["run"] = r
 
-                                scores.loc[len(scores.index)] = this_score  
+                                scores.loc[len(scores.index)] = this_score
 
                             with open(f"{save_folder}/scores.pkl", "wb") as f:
                                 pickle.dump(scores, f)
-                        
+
                         else:
-                            scores = pd.DataFrame(columns = ['taskid','exp_name','seed','run','auroc', 'accuracy', 'balanced_accuracy', 'fairness', 'train_auroc', 'train_accuracy', 
+                            scores = pd.DataFrame(columns = ['taskid','exp_name','seed','run','auroc', 'accuracy', 'balanced_accuracy', 'fairness', 'train_auroc', 'train_accuracy',
                                                             'train_balanced_accuracy', 'train_fairness'])
                             ga_func = partial(fitness_func, model = ml(random_state=super_seed), X=X_train, y=y_train, sens_features=sens_features, f_metric=subgroup_FNR_loss, seed=super_seed)
                             ga_func.__name__ = 'ga_func'
@@ -592,7 +592,7 @@ def loop_with_equal_evals2(ml_models, experiments, task_id_lists, base_save_fold
                                 this_score["seed"] = super_seed
                                 this_score["run"] = r
 
-                                scores.loc[len(scores.index)] = this_score  
+                                scores.loc[len(scores.index)] = this_score
 
                             with open(f"{save_folder}/scores.pkl", "wb") as f:
                                 pickle.dump(scores, f)
@@ -610,5 +610,5 @@ def loop_with_equal_evals2(ml_models, experiments, task_id_lists, base_save_fold
                             pickle.dump(pipeline_failure_dict, f)
 
                         return
-        
+
     print("all finished")
